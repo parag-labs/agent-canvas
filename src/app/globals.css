@@ -204,13 +204,25 @@ button.run:disabled {
 .react-flow__edge-textbg {
   fill: var(--panel);
 }
-/* The zoom/fit controls are white buttons with white icons by default - make icons dark. */
+/* The zoom/fit/lock controls default to white buttons with faint icons - low contrast on the
+   dark canvas. Theme them as dark buttons with light icons (with !important to beat React
+   Flow's own stylesheet, which loads after this file). */
+.react-flow__controls {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
 .react-flow__controls-button {
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--panel) !important;
+  border-bottom: 1px solid var(--border) !important;
+  width: 26px;
+  height: 26px;
+}
+.react-flow__controls-button:hover {
+  background: #1b2335 !important;
 }
 .react-flow__controls-button svg {
-  fill: #111726;
+  fill: var(--text) !important;
 }
 
 .muted { color: var(--muted); }
