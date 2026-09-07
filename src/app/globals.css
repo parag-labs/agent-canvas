@@ -169,6 +169,50 @@ button.run:disabled {
   color: var(--muted);
 }
 
+/* React Flow ships its own node stylesheet that loads after this file with equal specificity,
+   so its default (white bg) rule was winning and our light theme text became invisible
+   (light-on-white). Use higher-specificity selectors + !important so labels stay readable:
+   a solid dark panel with light text and a visible accent border. */
+.react-flow__node.react-flow__node-default,
+.react-flow__node.react-flow__node-input,
+.react-flow__node.react-flow__node-output,
+.rfnode {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--accent) !important;
+  border-radius: 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  width: 150px;
+  padding: 10px 12px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+.react-flow__node.selected {
+  border-color: var(--good) !important;
+}
+.react-flow__handle {
+  background: var(--accent);
+  border: 1px solid var(--bg);
+}
+.react-flow__edge-path {
+  stroke: var(--muted);
+}
+.react-flow__edge-text {
+  fill: var(--text);
+  font-size: 10px;
+}
+.react-flow__edge-textbg {
+  fill: var(--panel);
+}
+/* The zoom/fit controls are white buttons with white icons by default - make icons dark. */
+.react-flow__controls-button {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+.react-flow__controls-button svg {
+  fill: #111726;
+}
+
 .muted { color: var(--muted); }
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
 .output {
