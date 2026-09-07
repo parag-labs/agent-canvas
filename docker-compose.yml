@@ -1,0 +1,10 @@
+services:
+  agent-canvas:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      # Default LLM is the deterministic mock; no secrets required.
+      - AGENTCANVAS_LLM=mock
+    restart: unless-stopped
