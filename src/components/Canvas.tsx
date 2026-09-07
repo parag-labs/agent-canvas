@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import { ReactFlow, Background, Controls, type Edge, type Node } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import {
+  execute,
+  MockLLM,
   researchWorkflow,
   triageWorkflow,
   overPermissionedWorkflow,
@@ -60,11 +62,19 @@ export function Canvas() {
   async function onRun() {
     setBusy(true);
     try {
-      const res = (await fetch("/api/run", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ example, input, approveDangerous }),
-      }).then((r) => r.json())) as RunResponse;
+      // The engine is pure, deterministic TypeScript, so the whole run happens client-side -
+      // no backend and no API key. That is what lets this run as a static GitHub Pages demo.
+      const result = await execute(builders[example](), input, {
+        llm: new MockLLM(),
+        ...(approveDangerous ? { approve: (r) => r.kind === "tool" } : {}),
+      });
+      const res: RunResponse = {
+        runId: String(result.runId),
+        status: result.status,
+        output: result.output,
+        metrics: result.metrics,
+        events: [...result.events],
+      };
       setRun(res);
       setHistory((h) => [res, ...h].slice(0, 10));
     } finally {

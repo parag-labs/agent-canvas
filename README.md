@@ -1,5 +1,9 @@
 # AgentCanvas
 
+**▶ Live demo: https://parag-labs.github.io/agent-canvas/** — runs entirely in your browser
+(the engine is pure, deterministic TypeScript, so the whole demo is client-side; no backend,
+no API key).
+
 A visual, type-safe platform for **designing, running, debugging, and evaluating AI-agent
 workflows**. You wire up a workflow as a graph — inputs, agents, tools, conditions, human
 approvals, evaluators — watch it execute step by step, scrub back and forth through its
@@ -219,7 +223,7 @@ agent-canvas/
 │   │   ├── examples.ts         # example workflows (shared by tests/UI/eval)
 │   │   ├── eval-cli.ts         # `pnpm eval` entry point
 │   │   └── __tests__/          # 26 Vitest tests
-│   ├── app/                    # Next.js app router (UI + /api/run)
+│   ├── app/                    # Next.js app router (UI shell)
 │   └── components/Canvas.tsx   # React Flow visualization
 ├── ARCHITECTURE.md
 ├── SECURITY.md

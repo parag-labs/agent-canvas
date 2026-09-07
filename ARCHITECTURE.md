@@ -5,8 +5,8 @@ AgentCanvas is split into two halves with a hard line between them:
 1. **A deterministic engine** (`src/engine/`) with no framework dependencies. This is the
    part that is unit-tested and the part that matters. It has no knowledge of React, Next,
    or HTTP.
-2. **A thin Next.js UI** (`src/app`, `src/components`) that visualizes a workflow and calls
-   the engine over one API route.
+2. **A thin Next.js UI** (`src/app`, `src/components`) that visualizes a workflow and runs
+   the engine directly in the browser.
 
 Everything below is about the engine.
 
@@ -89,8 +89,8 @@ last rail against a malformed graph.
 
 ## UI boundary
 
-`src/app/api/run/route.ts` runs the engine server-side against a known example workflow
-and a `MockLLM`; it takes no secrets. `src/components/Canvas.tsx` is a `"use client"`
-component that imports the (pure, browser-safe) engine builders only for visualization and
-posts to `/api/run` to execute. The engine depends on nothing in the UI; the dependency
-arrow points one way.
+`src/components/Canvas.tsx` is a `"use client"` component that imports the (pure,
+browser-safe) engine and runs `execute()` directly in the browser with a `MockLLM` — no
+backend and no secrets. Because the whole run is client-side, the app ships as a static
+export to GitHub Pages. The engine depends on nothing in the UI; the dependency arrow points
+one way.
